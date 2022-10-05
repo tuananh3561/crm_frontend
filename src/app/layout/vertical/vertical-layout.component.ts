@@ -12,40 +12,40 @@ import { CoreConfigService } from '@core/services/config.service';
   encapsulation: ViewEncapsulation.None
 })
 export class VerticalLayoutComponent implements OnInit, OnDestroy {
-  coreConfig: any;
-
-  // Private
-  private _unsubscribeAll: Subject<any>;
-
-  /**
-   * Constructor
-   *
-   * @param {CoreConfigService} _coreConfigService
-   */
-  constructor(private _coreConfigService: CoreConfigService, private _elementRef: ElementRef) {
-    // Set the private defaults
-    this._unsubscribeAll = new Subject();
-  }
-
-  // Lifecycle Hooks
-  // -----------------------------------------------------------------------------------------------------
-
-  /**
-   * On init
-   */
-  ngOnInit(): void {
-    // Subscribe to config changes
-    this._coreConfigService.config.pipe(takeUntil(this._unsubscribeAll)).subscribe(config => {
-      this.coreConfig = config;
-    });
-  }
-
-  /**
-   * On destroy
-   */
-  ngOnDestroy(): void {
-    // Unsubscribe from all subscriptions
-    this._unsubscribeAll.next(true);
-    this._unsubscribeAll.complete();
-  }
+	coreConfig: any;
+	
+	// Private
+	private _unsubscribeAll: Subject<any>;
+	
+	/**
+	 * Constructor
+	 *
+	 * @param {CoreConfigService} _coreConfigService
+	 */
+	constructor(private _coreConfigService: CoreConfigService, private _elementRef: ElementRef) {
+		// Set the private defaults
+		this._unsubscribeAll = new Subject();
+	}
+	
+	// Lifecycle Hooks
+	// -----------------------------------------------------------------------------------------------------
+	
+	/**
+	 * On init
+	 */
+	ngOnInit(): void {
+		// Subscribe to config changes
+		this._coreConfigService.config.pipe(takeUntil(this._unsubscribeAll)).subscribe(config => {
+			this.coreConfig = config;
+		});
+	}
+	
+	/**
+	 * On destroy
+	 */
+	ngOnDestroy(): void {
+		// Unsubscribe from all subscriptions
+		this._unsubscribeAll.next(true);
+		this._unsubscribeAll.complete();
+	}
 }
