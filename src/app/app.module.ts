@@ -28,8 +28,13 @@ import { SharedModule } from "./shared/shared.module";
 
 const routes: Routes = [
 	{
-		path         : 'pages',
-		loadChildren : () => import('./main/pages/pages.module').then (m => m.PagesModule)
+		path       : '',
+		redirectTo : '/authentication/login',
+		pathMatch  : 'full'
+	},
+	{
+		path       : '**',
+		redirectTo : '/pages/miscellaneous/error' //Error 404 - Page not found
 	},
 	{
 		path         : 'miscellaneous',
@@ -40,6 +45,10 @@ const routes: Routes = [
 		loadChildren : () => import('./modules/authentication/authentication.module').then (m => m.AuthenticationModule)
 	},
 	{
+		path         : 'dashboard',
+		loadChildren : () => import('./modules/dashboard/dashboard.module').then (m => m.DashboardModule)
+	},
+	{
 		path         : 'accounts',
 		loadChildren : () => import('./modules/account-settings/account-settings.module').then (m => m.AccountSettingsModule)
 	},
@@ -48,13 +57,8 @@ const routes: Routes = [
 		loadChildren : () => import('./modules/system/system.module').then (m => m.SystemModule)
 	},
 	{
-		path       : '',
-		redirectTo : '/authentication/login',
-		pathMatch  : 'full'
-	},
-	{
-		path       : '**',
-		redirectTo : '/pages/miscellaneous/error' //Error 404 - Page not found
+		path         : 'pages',
+		loadChildren : () => import('./main/pages/pages.module').then (m => m.PagesModule)
 	},
 ];
 
